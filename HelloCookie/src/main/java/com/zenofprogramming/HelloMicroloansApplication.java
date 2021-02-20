@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HelloCookieApplication {
+public class HelloMicroloansApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HelloCookieApplication.class, args);
+		SpringApplication.run(HelloMicroloansApplication.class, args);
 	}
 
 }
