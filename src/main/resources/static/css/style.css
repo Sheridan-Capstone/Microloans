@@ -1,0 +1,92 @@
+:root{
+	font-size: 100%;
+	font-size: 16px;
+	line-height : 1.5;
+	font-family: 'Montserrat', 'sans-serif';
+	--primary-blue: #233975;
+}
+
+body{
+	background-color: #ececec !important;
+}
+
+h1{
+	text-align: center;
+}
+.left{
+	text-align: center;
+}
+
+.right{
+	background-color: #bbbbbb;
+}
+
+.left, .right{
+	height: 100vh;
+	width: 100%;
+}
+
+.upload{
+	border: 4px dotted black;
+	width: 75%;
+  	height: auto;
+}
+
+.input-container.type {
+	font-size: 1.5rem;
+}
+
+form input[type="radio"]{
+	width: 1em;
+    height: 1em;
+}
+
+
+form input[type="text"],
+	 input[type="date"],
+	 input[type="password"],
+	 input[type="tel"]{
+	display: inline;
+	width: 100%;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: 1px solid #c4c4c4;
+	padding: 1em;
+	margin-bottom: 1.25rem;
+	font-size: 0.875rem;
+}
+
+.input-container.password {
+	position: relative;
+}
+
+.input-container.password i{
+	position: absolute;
+	top: 42px;
+	right: 16px;
+}
+
+.signup-btn{
+	display: block;
+	width: 100%;
+	background: var(--primary-blue);
+	color: white;
+	font-weight: 700;
+	border: none;
+	padding: 1rem;
+	border-radius: 8px;
+	font-size: 0.75;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.signup-btn:hover{
+	background: #2c4893;
+	cursor: pointer;
+}
+
+@media screen and (min-width: 768px){
+	.left, .right{
+		height: 100vh;
+	}
+}
