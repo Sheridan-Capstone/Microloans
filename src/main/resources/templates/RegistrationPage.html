@@ -13,13 +13,13 @@
 <div class="row no-gutters">
 	<div class="col-md-6 no-gutters">
 		<div class="left d-flex justify-content-center align-items-center">
-			<form action="#" th:action="@{/signUp}" th:object="${newUser}" method="post">
+			<form action="#" th:action="@{/signUp}" th:object="${user}" method="post" enctype="utf8">
 				<img th:src="@{/images/cloud.png}" class="upload">
 				<br>
 				<br>
 				<br>
 				<br>
-				<input type="file" name="iamge" accept="image/png, image/jpeg">
+				<input type="file" name="image" accept="image/png, image/jpeg">
 				<br>
 				<br>
 				<br>
