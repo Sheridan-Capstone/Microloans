@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<<<<<<< HEAD
+
 <head>
 	<meta charset="UTF-8">
 	<title>Sign Up</title>
@@ -9,6 +11,8 @@
 	<link rel="stylesheet" type="text/css" media="all" href="../static/CSS/Style.css" th:href="@{/css/style.css}" />
 </head>
 
+
+
 <body>
 	<h1>Registration Page</h1>
 	<br>
@@ -17,11 +21,11 @@
 			<div class="left d-flex justify-content-center align-items-center">
 				<form action="#" th:action="@{/signUp}" th:object="${newUser}" method="post">
 					<img th:src="@{/images/cloud.png}" class="upload">
-					<br> 
 					<br>
 					<br>
 					<br>
-					<input type="file" name="image" accept="image/png, image/jpeg">
+					<br>
+					<input type="file" name="iamge" accept="image/png, image/jpeg">
 					<br>
 					<br>
 					<br>
@@ -42,7 +46,6 @@
 		<div class="col-md-6 no-gutters">
 			<div class="right d-flex justify-content-center align-items-center">
 				<form action="#" th:action="@{/signUp}" th:object="${newUser}" method="post">
-					<input type ="hidden" th:field="*{id}" />
 					User Name: <input type="text" th:field="*{uName}" required />
 					<br>
 					First Name: <input type="text" th:field="*{fName}" required />
@@ -68,4 +71,5 @@
 		</div>
 	</div>
 </body>
+
 </html>

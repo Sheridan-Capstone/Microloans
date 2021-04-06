@@ -77,16 +77,18 @@
         			 <div style="text-align: center; margin-top: 0.625rem;" id="paypal-button-container"></div>
 					<br>
 		</form>
-		<script src="https://www.paypal.com/sdk/js?client-id=AU74ikxPWJiBuYeVxE-UVvVLuNdLMBFx7XSl1YChqshEe7mJMbvA9WKholLIBGpkYdtlM7sk9rvndhAM&currency=CAD" data-sdk-integration-source="button-factory"></script>
+	<script src="https://www.paypal.com/sdk/js?client-id=AU74ikxPWJiBuYeVxE-UVvVLuNdLMBFx7XSl1YChqshEe7mJMbvA9WKholLIBGpkYdtlM7sk9rvndhAM&currency=CAD" data-sdk-integration-source="button-factory"></script>
       <script>
       function initPayPalButton() {
-        var description = document.querySelector('#smart-button-container #description');
+        var descriptionSelect = document.querySelector('#smart-button-container #description');
         var amount = document.querySelector('#smart-button-container #amount');
         var descriptionError = document.querySelector('#smart-button-container #descriptionError');
         var priceError = document.querySelector('#smart-button-container #priceLabelError');
         var invoiceid = document.querySelector('#smart-button-container #invoiceid');
         var invoiceidError = document.querySelector('#smart-button-container #invoiceidError');
         var invoiceidDiv = document.querySelector('#smart-button-container #invoiceidDiv');
+        
+        var description = descriptionSelect.options[descriptionSelect.selectedIndex];
     
         var elArr = [description, amount];
     
@@ -166,6 +168,7 @@
           onApprove: function (data, actions) {
             return actions.order.capture().then(function (details) {
               alert('Transaction completed by ' + details.payer.name.given_name + '!');
+              window.location.replace("/donate")
             });
           },
     
