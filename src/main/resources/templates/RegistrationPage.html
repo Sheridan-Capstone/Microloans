@@ -25,7 +25,7 @@
 					<br>
 					<br>
 					<br>
-					<input type="file" name="iamge" accept="image/png, image/jpeg">
+					<input type="file" name="image" accept="image/png, image/jpeg">
 					<br>
 					<br>
 					<br>
@@ -34,10 +34,10 @@
 					<br>
 					<br>
 					<div class="input-container type">
-						Donor: <input name="type" type="radio" th:field="*{type}" value="donor">
+						Donor: <input name="type" type="radio" value="donor">
 						<br>
 						<br>
-						Student: <input name="type" type="radio" th:field="*{type}" value="student">
+						Student: <input name="type" type="radio" value="student">
 					</div>
 				</form>
 			</div>
@@ -56,7 +56,7 @@
 						Password: <input type="password" th:field="*{password}" />
 						<i class="fa fa-eye-slash"></i>
 					</div>
-					Re-enter Password: <input type="password" th:field="*{cPassword}" required />
+					Re-enter Password: <input type="password" th:field="*{password}" required />
 					<br>
 					Phone Number: <input type="tel" th:field="*{pNum}" required />
 					<br>
