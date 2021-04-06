@@ -9,6 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ca.sheridancollege.dieuj</groupId>
+<<<<<<< HEAD
 	<artifactId>capstone</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>capstone</name>
@@ -64,6 +65,42 @@
 						</exclude>
 					</excludes>
 				</configuration>
+=======
+	<artifactId>HelloDocker</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>HelloDocker</name>
+	<description>Demo project to display Hello with Docker </description>
+	<properties>
+		<java.version>15</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+>>>>>>> branch 'main' of https://github.com/Sheridan-Capstone/Microloans
 			</plugin>
 		</plugins>
 	</build>
