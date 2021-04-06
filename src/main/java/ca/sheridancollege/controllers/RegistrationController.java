@@ -1,6 +1,5 @@
 package ca.sheridancollege.controllers;
 
-<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,26 +29,4 @@ public class RegistrationController {
 		return "redirect:/";
 	}
 
-=======
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import ca.sheridancollege.beans.User;
-
-@Controller
-public class RegistrationController {
-
-	@GetMapping("/")
-	public String goToSignUpPage(Model model) {
-		model.addAttribute("newUser", new User());
-		return "RegistrationPage.html";
-	}
-
-	@PostMapping("/signUp")
-	public String handleSignUp(Model model) {
-		return "redirect:/";
-	}
->>>>>>> branch 'main' of https://github.com/Sheridan-Capstone/Microloans
-}
