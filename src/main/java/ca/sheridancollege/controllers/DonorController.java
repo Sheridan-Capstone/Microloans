@@ -13,7 +13,7 @@ import lombok.NonNull;
 
 @Controller
 @AllArgsConstructor
-public class donorController {
+public class DonorController {
 
 	
 	private DonorRepository donorRepository;
