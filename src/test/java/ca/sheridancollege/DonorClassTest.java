@@ -3,7 +3,7 @@ package ca.sheridancollege;
 import static org.junit.Assert.*;
 import org.junit.jupiter.api.Test;
 
-class donorClassTest {
+class DonorClassTest {
 
 	@Test
 	void testDonationGood() {
@@ -22,8 +22,8 @@ class donorClassTest {
 	@Test
 	void testDonationBoundary() {
 		Donation d = new Donation();
-		d.amount = 0;
-		assertTrue("Donation amount is invalid", d.amount == 0);
+		d.amount = 1;
+		assertTrue("Donation amount is invalid", d.amount == 1);
 	}
 }
 
