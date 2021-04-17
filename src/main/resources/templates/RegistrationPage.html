@@ -3,73 +3,81 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Sign Up</title>
+	<title>Registration</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" media="all" href="../static/CSS/Style.css" th:href="@{/css/style.css}" />
 </head>
 
-
-
 <body>
-	<h1>Registration Page</h1>
-	<br>
-	<div class="row no-gutters">
-		<div class="col-md-6 no-gutters">
-			<div class="left d-flex justify-content-center align-items-center">
-				<form action="#" th:action="@{/signUp}" th:object="${newUser}" method="post">
-					<img th:src="@{/images/cloud.png}" class="upload">
-					<br>
-					<br>
-					<br>
-					<br>
-					<input type="file" name="image" accept="image/png, image/jpeg">
-					<br>
-					<br>
-					<br>
-					<input type="submit" value="Upload">
-					<br>
-					<br>
-					<br>
-					<div class="input-container type">
-						Donor: <input name="type" type="radio" value="donor">
-						<br>
-						<br>
-						Student: <input name="type" type="radio" value="student">
-					</div>
-				</form>
-			</div>
-		</div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-xl-9 mx-auto">
+        <div class="card card-signin flex-row my-5">
+          <div class="card-img-left d-none d-md-flex">
+            <!-- Background image for card set in CSS! -->
+          </div>
+          <div class="card-body">
+            <h5 class="card-title text-center">Register</h5>
+            <form class="form-signin" action="#" th:action="@{/signUp}" th:object="${newUser}" method="post">
+              <div class="form-label-group">
+                <input type="text" id="inputUsername" class="form-control" placeholder="Username" th:field="*{uName}" required autofocus>
+                <label for="inputUsername">Username</label>
+              </div>
+              
+              <div class="form-label-group">
+                <input type="text" id="inputFirstname" class="form-control" placeholder="First Name" th:field="*{fName}" required autofocus>
+                <label for="inputFirstname">First Name</label>
+              </div>
+              
+              <div class="form-label-group">
+                <input type="text" id="inputLastname" class="form-control" placeholder="Last Name" th:field="*{lName}" required autofocus>
+                <label for="inputLastname">Last Name</label>
+              </div>
 
-		<div class="col-md-6 no-gutters">
-			<div class="right d-flex justify-content-center align-items-center">
-				<form action="#" th:action="@{/signUp}" th:object="${newUser}" method="post">
-					User Name: <input type="text" th:field="*{uName}" required />
-					<br>
-					First Name: <input type="text" th:field="*{fName}" required />
-					<br>
-					Last Name: <input type="text" th:field="*{lName}" required />
-					<br>
-					<div class="input-container password">
-						Password: <input type="password" th:field="*{password}" />
-						<i class="fa fa-eye-slash"></i>
-					</div>
-					Re-enter Password: <input type="password" th:field="*{password}" required />
-					<br>
-					Phone Number: <input type="tel" th:field="*{pNum}" required />
-					<br>
-					Email: <input type="text" th:field="*{email}" required />
-					<br>
-					Date of Birth: <input type="date" th:field="*{dob}" required />
-					<br>
-					<br>
-					<input class="signup-btn" type="submit" value="Sign Up!" />
-				</form>
-			</div>
-		</div>
-	</div>
+              <div class="form-label-group">
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" th:field="*{email}" required>
+                <label for="inputEmail">Email Address</label>
+              </div>
+              
+              <div class="form-label-group">
+                <input type="tel" id="inputTelephone" class="form-control" placeholder="Telephone" th:field="*{pNum}" required>
+                <label for="inputTelephone">Telephone #</label>
+              </div>
+              
+               <div class="form-label-group">
+                <input type="tel" id="inputTelephone" class="form-control" placeholder="Telephone" th:field="*{pNum}" required>
+                <label for="inputTelephone">Telephone #</label>
+              </div>
+              
+               <div class="form-label-group">
+                <input type="date" id="inputDOB" class="form-control" placeholder="Birth Date" th:field="*{dob}" required>
+                <label for="inputDOB">Birth Date</label>
+              </div>
+              
+
+              <hr>
+
+              <div class="form-label-group">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" th:field="*{password}" required>
+                <label for="inputPassword">Password</label>
+              </div>
+
+              <div class="form-label-group">
+                <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Password" th:field="*{password}" required>
+                <label for="inputConfirmPassword">Confirm password</label>
+              </div>
+
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
+              <!-- takes you to login, but I did not implement a login page :D-->
+              <a class="d-block text-center mt-2 small" href="#">Sign In</a>
+              <hr class="my-4">
+             
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
-
-</html>
-
