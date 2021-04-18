@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Unauthorized Page </title>
+
+<link rel="stylesheet" type="text/css" media="all"
+href="../static/css/mycss.css" th:href+"@{/css/mycss.css}" />
+
+</head>
+<body>
+
+	<p>This is an unsecured page, but you can access the secured pages
+		after authenticating.</p>
+	<ul>
+		<li>Go to the <a href="/secure" th:href="@{/secure}">secured pages</a></li>
+	</ul>
+
+</body>
+</html>
