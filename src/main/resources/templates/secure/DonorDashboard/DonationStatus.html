@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Donor</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" th:href="@{/secure}">Home</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="#" th:text="${name}"></a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/logout}">Log Out</a></li>
+					
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	<h1 class="mt-5 text-center" >Donor Dashboard</h1>
+	<h3 class="text-center">Donation Status</h3>
+	
+	<section class="fluid-container" style="background-color: white;">
+		<div class="row p-5">
+			<div class="col-md-2 offset-md-1">
+				<div class="list-group">
+				  <a th:href="@{/secure/DonorDashboard/FavouriteStudent}" class="list-group-item list-group-item-action mb-5" aria-current="true">
+				    View Favourite Student
+				  </a>
+				  <a th:href="@{/secure/DonorDashboard}" class="list-group-item list-group-item-action mb-5">Donate</a>
+				  <a href="#" class="list-group-item list-group-item-action mb-5">Donation Status</a>
+				  <a th:href="@{/secure/DonorDashboard/MessageCenter}" class="list-group-item list-group-item-action mb-5">Message Center</a>
+				  <a th:href="@{/secure/DonorDashboard/ProfileManager}" class="list-group-item list-group-item-action" tabindex="-1" aria-disabled="true">Manage Profile</a>
+				</div>
+			</div>
+			<div class="offset-md-2 col-md-5">
+				<div>
+					<h1>My Donations</h1>
+					<p th:if="${#lists.size(donations)} == 0">No donation</p>
+					<div class="card mb-2" th:each="s : ${donations}">
+					  <div class="card-body">
+						<h5 class="card-title"> <a th:text="'To ' + ${s.studentEmail}">Card title</a></h5>
+						<h6 class="card-subtitle mb-2 text-muted" th:text="${s.date}">Card subtitle</h6>
+						<p class="card-text" th:text="'Amount: ' + ${s.amount} + ' CAD'">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+					  </div>
+					</div>
+				</div>
+			</div>
+			<div class="offset-md-2"></div>
+		</div>
+	</section>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+		crossorigin="anonymous"></script>
+</body>
+</html>

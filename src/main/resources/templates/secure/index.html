@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Secure page</title>
+</head>
+<body>
+
+	<h1>This is a secured page!</h1>
+	Name: [[${name}]]<br>
+	Role
+	<ul>
+		<li th:each="role:${roleList}" th:text="${role}"></li>
+	</ul>
+	<p>
+		<a href="/" th:href="@{/}">Back to home page</a>
+	</p>
+	<p>
+		<a href="#" th:href="@{/logout}">Logout</a>
+	</p>
+</body>
+</html>

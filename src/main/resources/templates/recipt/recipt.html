@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Recipt</title>
+    <style>
+        .center{
+            display:flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+     <div>
+        <p>
+            {{date}}
+        </p>
+        <p>
+            {{donor}}
+        </p>
+        <div class="center">
+            <h1>Tax Recipt</h1>
+        </div>
+        <div class="center">
+            <p>
+                Total amount donated as of {{date}}: {{amount}} CAD
+            </p>
+        </div>
+     </div>
+</body>
+</html>
