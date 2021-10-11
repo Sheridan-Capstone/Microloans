@@ -58,7 +58,9 @@ public class HomeController {
 			model.addAttribute("students", studentRepository.findAll());
 			
 			return "secure/DonorHomepage";
-		} else if (roleList.get(0).toString().equals("ROLE_ADMIN")) {
+		}else if (roleList.get(0).toString().equals("ROLE_STUDENT")) {
+			return "secure/StudentDashboard/index";
+		}else if (roleList.get(0).toString().equals("ROLE_ADMIN")) {
 			return "redirect:/secure/AdminDashboard/MessageCenter/1";
 		}else {
 			return "secure/index";

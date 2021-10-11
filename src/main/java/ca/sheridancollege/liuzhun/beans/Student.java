@@ -41,7 +41,7 @@ public class Student {
 	
 	@NonNull
 	private String schoolType;
-	
+
 	@NonNull
 	private String encryptedPassword;
 	@NonNull
