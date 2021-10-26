@@ -1,11 +1,12 @@
 package ca.sheridancollege.liuzhun.controller;
 
 import ca.sheridancollege.liuzhun.beans.Message;
+import ca.sheridancollege.liuzhun.beans.Student;
 import ca.sheridancollege.liuzhun.beans.ChangePassword;
-import ca.sheridancollege.liuzhun.beans.Donor;
 import ca.sheridancollege.liuzhun.repositories.DonationRepository;
 import ca.sheridancollege.liuzhun.repositories.DonorRepository;
 import ca.sheridancollege.liuzhun.repositories.MessageRepository;
+import ca.sheridancollege.liuzhun.repositories.StudentRepository;
 import lombok.AllArgsConstructor;
 
 import org.springframework.security.core.Authentication;
@@ -18,70 +19,48 @@ import org.springframework.ui.Model;
 
 @AllArgsConstructor
 @Controller
-public class DonorController {
-
+public class StudentController {
+	
 	private DonorRepository donorRepository;
 	private DonationRepository donationRepository;
+	private StudentRepository studentRepository;
 	private MessageRepository messageRepository;
 
-	@GetMapping("/secure/DonorDashboard")
-	public String DonorDashboard(Model model, Authentication authentication) {
+	@GetMapping("/secure/StudentDashboard")
+	public String StudentDashboard(Model model, Authentication authentication) {
 		
 		String name = authentication.getName();
 		
 		model.addAttribute("name", name);
-		model.addAttribute("favouriteStudents", donorRepository.findByEmail(name).getFavouriteStudents());
 		
-		return "secure/DonorDashboard/index";
+		return "secure/StudentDashboard/index";
 	}
 
-	@GetMapping("/secure/DonorDashboard/Donation")
-	public String Donation(Model model, Authentication authentication) {
-		
-		String name = authentication.getName();
-		
-		model.addAttribute("name", name);
-		model.addAttribute("favouriteStudents", donorRepository.findByEmail(name).getFavouriteStudents());
-		
-		return "secure/DonorDashboard/Donation";
-	}
-
-	@GetMapping("/secure/DonorDashboard/MessageCenter")
-	public String DonorDashboardMessageCenter(Model model, Authentication authentication) {
+	@GetMapping("/secure/StudentDashboard/MessageCenter")
+	public String StudentDashboardMessageCenter(Model model, Authentication authentication) {
 
 		String name = authentication.getName();
 		
 		model.addAttribute("name", name);
-		model.addAttribute("students", donorRepository.findByEmail(name).getFavouriteStudents());
+		model.addAttribute("donors", donorRepository.findAll());
 		model.addAttribute("message", new Message());
 		model.addAttribute("messages", messageRepository.findByReceiverAndApproval(name, 1));
 		
-		return "secure/DonorDashboard/MessageCenter";
+		return "secure/StudentDashboard/MessageCenter";
 	}
 	
-	@GetMapping("/secure/DonorDashboard/FavouriteStudent")
-	public String FavouriteStudent(Model model, Authentication authentication) {
-		
-		String name = authentication.getName();
-
-		model.addAttribute("name", name);
-		model.addAttribute("favouriteStudents", donorRepository.findByEmail(name).getFavouriteStudents());
-
-		return "secure/DonorDashboard/FavouriteStudent";
-	}
-	
-	@GetMapping("/secure/DonorDashboard/DonationStatus")
-	public String DonationStatus(Model model, Authentication authentication) {
+	@GetMapping("/secure/StudentDashboard/DonationHistory")
+	public String DonationHistory(Model model, Authentication authentication) {
 
 		String name = authentication.getName();
 
 		model.addAttribute("name", name);
 		model.addAttribute("donations", donationRepository.findByDonorEmail(name));
 		
-		return "secure/DonorDashboard/DonationStatus";
+		return "secure/StudentDashboard/DonationHistory";
 	}
 	
-	@GetMapping("/secure/DonorDashboard/ProfileManager")
+	@GetMapping("/secure/StudentDashboard/ProfileManager")
 	public String ProfileManager(Model model, Authentication authentication) {
 		
 		String name = authentication.getName();
@@ -89,24 +68,24 @@ public class DonorController {
 		model.addAttribute("name", name);
 		model.addAttribute("changePassword", new ChangePassword());
 
-		return "secure/DonorDashboard/ProfileManager";
+		return "secure/StudentDashboard/ProfileManager";
 	}
 
-	@GetMapping("/secure/DonorDashboard/DeactivateAccount")
+	@GetMapping("/secure/StudentDashboard/DeactivateAccount")
 	public String DeactivateAccount(Model model, Authentication authentication) {
 		
 		String name = authentication.getName();
 		
-		Donor donor = donorRepository.findByEmail(name);
+		Student student = studentRepository.findByEmail(name);
 		
-		donor.setIsActive(false);
+		student.setEnabled(false);
 		
-		donorRepository.save(donor);
-
+		studentRepository.save(student);
+		System.out.println(student.getEnabled());
 		return "redirect:/logout";
 	}
 
-	@PostMapping("/secure/DonorDashboard/ChangePassword")
+	@PostMapping("/secure/StudentDashboard/ChangePassword")
 	public String ChangePassword(Model model, Authentication authentication, @ModelAttribute ChangePassword changePassword) {
 
 		String name = authentication.getName();
@@ -115,26 +94,26 @@ public class DonorController {
 		String newPassword = changePassword.getNewPassword();
 		String newPasswordConfirm = changePassword.getNewPasswordConfirm();
 		
-		Donor donor = donorRepository.findByEmail(name);
+		Student student = studentRepository.findByEmail(name);
 		
-		if(!matchPassword(currentPassword, donor.getEncryptedPassword())) {
+		if(!matchPassword(currentPassword, student.getEncryptedPassword())) {
 			
 			model.addAttribute("message", "Current password is incorrect!");
 			
-			return "secure/DonorDashboard/ProfileManager";
+			return "secure/StudentDashboard/ProfileManager";
 		}if(!newPassword.equals(newPasswordConfirm)){
 			
 			model.addAttribute("message", "Password confirmation is incorrect!");
 
-			return "secure/DonorDashboard/ProfileManager";
+			return "secure/StudentDashboard/ProfileManager";
 		}
 		
-		donor.setEncryptedPassword(encodePassword(newPassword));
-		donorRepository.save(donor);
+		student.setEncryptedPassword(encodePassword(newPassword));
+		studentRepository.save(student);
 			
 		model.addAttribute("message", "Password changed successfully!");
 
-		return "secure/DonorDashboard/ProfileManager";
+		return "secure/StudentDashboard/ProfileManager";
 	}
 
 	private String encodePassword(String password) {

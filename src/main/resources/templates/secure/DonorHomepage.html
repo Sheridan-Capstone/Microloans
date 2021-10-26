@@ -44,8 +44,11 @@
 				<div class="carousel-item " th:each="s : ${students}">
 				  <img src="https://images.unsplash.com/photo-1506794778225-cbf6c8df4c5c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" class="d-block w-100" alt="...">
 				  <div class="carousel-caption d-none d-md-block">
-					<h5> <a class="link-light" th:href="@{/secure/StudentDetails/} + ${s.id}" th:text="${s.firstname} + ' ' + ${s.lastname}"></a></h5>
-					<h5> <span th:text="${s.schoolType}"></span> <span> student</span></h5>
+					<h5> <span>Name:</span> <a class="link-light" th:href="@{/secure/StudentDetails/} + ${s.id}" th:text="${s.firstname} + ' ' + ${s.lastname}"></a></h5>
+					<h5> <span>School Type:</span> <span th:text="${s.schoolType}"></span> <span> student</span></h5>
+					<h5> <span>Gpa: </span> <span th:text="${s.gpa}"></span> </h5>
+					<h5> <span>High School: </span> <span th:text="${s.highSchoolName}"></span> </h5>
+					<h5> <span>Field of Interest: </span> <span th:text="${s.fieldOfInterest}"></span> </h5>
 					<a href="#" th:data-id="${s.id}" class="link-light addToFavourite">Add to favourite</a>
 				  </div>
 				</div>
@@ -63,21 +66,75 @@
 	</section>
 
 	<section class="container mt-5 py-5" style="background-color: white;">
-		<h2 class="text-center">Filter</h2>	
+	<form method="post" th:object="${studentFilter}" th:action="@{/secure/Home/filter}">
+		<h1 class="text-center mb-3">Filter</h1>	
+		<div class="row mb-2">
+			<div class="col-md-4">
+				<h3>School Type:</h3>
+			</div>
+			<div class="col-md-2 d-flex justify-content-center">
+			<!--  	<a th:href="@{/secure/Home/university}" class="btn btn-primary">By University Students</a> -->
+				<input class="form-check-input" th:field="*{schoolType}" value="university" type="radio" name="schoolTypeRadio" id="flexRadioDefault1" checked>
+				 <label class="form-check-label" for="flexRadioDefault1">
+				 	University
+				 </label>
+			</div>
+			<div class="col-md-2 d-flex justify-content-center">
+			<!-- <a th:href="@{/secure/Home/college}" class="btn btn-primary">By College Students</a>-->
+				<input class="form-check-input" th:field="*{schoolType}" value="college" type="radio" name="schoolTypeRadio" id="flexRadioDefault2">
+				 <label class="form-check-label" for="flexRadioDefault2">
+				 	College
+				 </label>
+			</div>
+			<div class="col-md-4"></div>
+		</div>
+		<div class="row mb-2">
+			<div class="col-md-4">
+				<h3>High School:</h3>	
+			</div>
+			<div class="col-md-4 d-flex justify-content-center">
+				<select class="form-select" name="highSchool" th:field="*{highSchool}">
+					<option th:each="h : ${highSchools}" th:value="${h.name}" th:text="${h.name}"></option>	
+				</select>
+			</div>
+			<div class="col-md-4"></div>
+		</div>
+		<div class="row mb-2">
+			<div class="col-md-4">
+				<h3>Field of Interest:</h3>	
+			</div>
+			<div class="col-md-4 d-flex justify-content-center">
+				<select class="form-select" name="fieldOfInterest" th:field="*{fieldOfInterest}">
+					<option th:each="h : ${fieldOfInterests}" th:value="${h.name}" th:text="${h.name}"></option>	
+				</select>
+			</div>
+			<div class="col-md-4"></div>
+		</div>
+		<div class="row mb-2">
+			<div class="col-md-4">
+				<h3>Gpa:</h3>	
+			</div>
+			<div class="col-md-2 d-flex justify-content-center">
+				<div class="input-group input-group-sm mb-3">
+				  <span class="input-group-text" id="inputGroup-sizing-sm">From</span>
+				  <input th:field="*{lowGpa}" type="number" min="0" max="4" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+				</div>
+			</div>
+			<div class="col-md-2 d-flex justify-content-center">
+				<div class="input-group input-group-sm mb-3">
+				  <span class="input-group-text" id="inputGroup-sizing-sm">To</span>
+				  <input th:field="*{highGpa}" type="number" min="0" max="4" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+				</div>
+			</div>
+			<div class="col-md-4"></div>
+		</div>
 		<div class="row mb-2">
 			<div class="col-md-4"></div>
-			<div class="col-md-4 d-flex justify-content-center">
-				<a th:href="@{/secure/Home/university}" class="btn btn-primary">By University Students</a>
-			</div>
+			<div class="col-md-2"><button class="btn btn-primary" type="submit">Filter</button></div>
+			<div class="col-md-2"></div>
 			<div class="col-md-4"></div>
 		</div>
-		<div class="row">
-			<div class="col-md-4"></div>
-			<div class="col-md-4 d-flex justify-content-center">
-				<a th:href="@{/secure/Home/college}" class="btn btn-primary">By College Students</a>
-			</div>
-			<div class="col-md-4"></div>
-		</div>
+	</form>
 	</section>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
 <script th:src="@{/js/addToFavourite.js}"></script>

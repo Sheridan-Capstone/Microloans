@@ -86,6 +86,13 @@ public class UtilityController {
 		messageRepository.save(message);
 	}
 
+	@PostMapping(consumes = {MediaType.TEXT_PLAIN_VALUE}, value = "/removeMessage")
+	public void removeMessage(@RequestBody String id, Authentication authentication) {
+		Message message = messageRepository.findById(Long.parseLong(id)).get();
+		
+		messageRepository.delete(message);
+	}
+
 	@PostMapping(consumes = {MediaType.TEXT_PLAIN_VALUE}, value = "/saveDonation")
 	public void saveDonation(@RequestBody String donation, Authentication authentication) {
 		Donation d = new Donation();

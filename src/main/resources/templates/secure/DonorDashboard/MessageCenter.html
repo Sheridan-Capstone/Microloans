@@ -40,7 +40,8 @@
 				  <a th:href="@{/secure/DonorDashboard/FavouriteStudent}" class="list-group-item list-group-item-action mb-5" aria-current="true">
 				    View Favourite Student
 				  </a>
-				  <a th:href="@{/secure/DonorDashboard}" class="list-group-item list-group-item-action mb-5">Donate</a>
+				  <a th:href="@{/secure/DonorDashboard}" class="list-group-item list-group-item-action mb-5">Paypal</a>
+				  <a th:href="@{/secure/DonorDashboard/Donation}" class="list-group-item list-group-item-action mb-5">Donate</a>
 				  <a th:href="@{/secure/DonorDashboard/DonationStatus}" class="list-group-item list-group-item-action mb-5">Donation Status</a>
 				  <a href="#" class="list-group-item list-group-item-action mb-5">Message Center</a>
 				  <a th:href="@{/secure/DonorDashboard/ProfileManager}" class="list-group-item list-group-item-action" tabindex="-1" aria-disabled="true">Manage Profile</a>
@@ -74,6 +75,9 @@
 						<h5 class="card-title"> <a th:text="'From ' + ${s.sender}">Card title</a></h5>
 						<h6 class="card-subtitle mb-2 text-muted" th:text="'To ' + ${s.receiver}">Card subtitle</h6>
 						<p class="card-text" th:text="${s.body}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						<a href="#" class="card-link replyMessageBtn" th:data-sender="${s.sender}" th:data-receiver="${s.receiver}" th:data-body="${s.body}">Reply</a>
+						<a href="#" class="card-link removeMessage" th:data-id="${s.id}">Delete</a>
+						<a href="#" class="card-link archiveMessage" th:data-id="${s.id}">Archive</a>
 					  </div>
 					</div>
 				</div>
@@ -86,5 +90,9 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
 		crossorigin="anonymous"></script>
+
+	<script th:src="@{/js/messageActions.js}"></script>
+	<script th:src="@{/js/cardRemoval.js}"></script>
+	<script th:src="@{/js/replyMessage.js}"></script>
 </body>
 </html>

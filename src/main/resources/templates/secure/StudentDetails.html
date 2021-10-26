@@ -39,6 +39,10 @@
 			<div>
 				<p>Name: <span th:text="${student.firstname} + ' ' + ${student.lastname}"> </span></p>
 				<p>Email: <span th:text="${student.email}"> </span></p>
+				<p>School Type: <span th:text="${student.schoolType}"> </span></p>
+				<p>GPA: <span th:text="${student.gpa}"> </span></p>
+				<p>High School: <span th:text="${student.highSchoolName}"> </span></p>
+				<p>Field Of Interest: <span th:text="${student.fieldOfInterest}"> </span></p>
 				<a href="#" th:data-id="${student.id}" class="link-dark addToFavourite">Add to favourite</a>
 			</div>
 		</div>

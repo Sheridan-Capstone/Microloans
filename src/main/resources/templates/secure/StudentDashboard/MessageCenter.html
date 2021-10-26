@@ -30,34 +30,37 @@
 		</div>
 	</nav>
 	
-	<h1 class="mt-5 text-center" >Donor Dashboard</h1>
-	<h3 class="text-center">Donation Status</h3>
+	<h1 class="mt-5 text-center" >Student Dashboard</h1>
+	<h3 class="text-center">Message Center</h3>
 	
 	<section class="fluid-container" style="background-color: white;">
 		<div class="row p-5">
 			<div class="col-md-2 offset-md-1">
 				<div class="list-group">
-				  <a th:href="@{/secure/DonorDashboard/FavouriteStudent}" class="list-group-item list-group-item-action mb-5" aria-current="true">
-				    View Favourite Student
-				  </a>
-				  <a th:href="@{/secure/DonorDashboard}" class="list-group-item list-group-item-action mb-5">Paypal</a>
-				  <a th:href="@{/secure/DonorDashboard/Donation}" class="list-group-item list-group-item-action mb-5">Donate</a>
-				  <a href="#" class="list-group-item list-group-item-action mb-5">Donation Status</a>
-				  <a th:href="@{/secure/DonorDashboard/MessageCenter}" class="list-group-item list-group-item-action mb-5">Message Center</a>
-				  <a th:href="@{/secure/DonorDashboard/ProfileManager}" class="list-group-item list-group-item-action" tabindex="-1" aria-disabled="true">Manage Profile</a>
+				  <a th:href="@{/secure/StudentDashboard/DonationHistory}" class="list-group-item list-group-item-action mb-5">Donation History</a>
+				  <a th:href="@{/secure/StudentDashboard/MessageCenter}" class="list-group-item list-group-item-action mb-5">Message Center</a>
+				  <a th:href="@{/secure/StudentDashboard/ProfileManager}" class="list-group-item list-group-item-action" tabindex="-1" aria-disabled="true">Manage Profile</a>
 				</div>
 			</div>
 			<div class="offset-md-2 col-md-5">
 				<div>
-					<h1>My Donations</h1>
-					<p th:if="${#lists.size(donations)} == 0">No donation</p>
-					<div class="card mb-2" th:each="s : ${donations}">
-					  <div class="card-body">
-						<h5 class="card-title"> <a th:text="'To ' + ${s.studentEmail}">Card title</a></h5>
-						<h6 class="card-subtitle mb-2 text-muted" th:text="${s.date}">Card subtitle</h6>
-						<p class="card-text" th:text="'Amount: ' + ${s.amount} + ' CAD'">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+					<form method="post" th:object="${message}" th:action="@{/secure/message}">
+						<input type="hidden" th:field="*{id}" />
+					  <div class="mb-3">
+						   <label for="donor" class="form-label">Donor</label>
+						  <select class="form-select" th:field="*{receiver}" name="donor" aria-label="Default select example" id="donor">
+								<option selected value="-1">Please select a donor to send email to</option>
+							  <option th:each="d : ${donors}" th:value="${d.email}" th:text="${d.firstname} + ' ' + ${d.lastname} + ' (' + ${d.email} + ')'"></option>
+						  </select>
 					  </div>
-					</div>
+					  <div class="mb-3">
+						<label for="message" class="form-label">Message</label>
+						<textarea th:field="*{body}" class="form-control" id="message" ></textarea>
+					  </div>
+					  <div class="mb-3">
+						  <button class="btn btn-primary" type="submit">Send</button>
+					  </div>
+					</form>
 				</div>
 			</div>
 			<div class="offset-md-2"></div>

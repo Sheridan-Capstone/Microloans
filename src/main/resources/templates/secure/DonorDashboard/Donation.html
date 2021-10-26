@@ -31,7 +31,7 @@
 	</nav>
 	
 	<h1 class="mt-5 text-center" >Donor Dashboard</h1>
-	<h3 class="text-center">Donation Status</h3>
+	<h3 class="text-center">Donate</h3>
 	
 	<section class="fluid-container" style="background-color: white;">
 		<div class="row p-5">
@@ -41,32 +41,64 @@
 				    View Favourite Student
 				  </a>
 				  <a th:href="@{/secure/DonorDashboard}" class="list-group-item list-group-item-action mb-5">Paypal</a>
-				  <a th:href="@{/secure/DonorDashboard/Donation}" class="list-group-item list-group-item-action mb-5">Donate</a>
-				  <a href="#" class="list-group-item list-group-item-action mb-5">Donation Status</a>
+				  <a href="#" class="list-group-item list-group-item-action mb-5">Donate</a>
+				  <a th:href="@{/secure/DonorDashboard/DonationStatus}" class="list-group-item list-group-item-action mb-5">Donation Status</a>
 				  <a th:href="@{/secure/DonorDashboard/MessageCenter}" class="list-group-item list-group-item-action mb-5">Message Center</a>
 				  <a th:href="@{/secure/DonorDashboard/ProfileManager}" class="list-group-item list-group-item-action" tabindex="-1" aria-disabled="true">Manage Profile</a>
 				</div>
 			</div>
 			<div class="offset-md-2 col-md-5">
-				<div>
-					<h1>My Donations</h1>
-					<p th:if="${#lists.size(donations)} == 0">No donation</p>
-					<div class="card mb-2" th:each="s : ${donations}">
-					  <div class="card-body">
-						<h5 class="card-title"> <a th:text="'To ' + ${s.studentEmail}">Card title</a></h5>
-						<h6 class="card-subtitle mb-2 text-muted" th:text="${s.date}">Card subtitle</h6>
-						<p class="card-text" th:text="'Amount: ' + ${s.amount} + ' CAD'">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-					  </div>
-					</div>
-				</div>
+				<form method="POST">
+				  <input type="hidden" id="donorName" th:value="${name}"/>
+			      <div class="mb-3">
+			     	  <label for="student" class="form-label">Favourite Student</label>
+					  <select class="form-select" name="student" aria-label="Default select example" id="student">
+					  	<th:block th:each="s : ${favouriteStudents}">
+						  <option th:text="${s.firstname} + ' ' + ${s.lastname}" th:attr="email=${s.email}"></option>	
+					  	</th:block>
+					  </select>
+				  </div>
+				  <div class="mb-3">
+				    <label for="amount" class="form-label">Donation Amount</label>
+				    <input type="number" name="amount" class="form-control" value="1" id="amount">
+				  </div>
+				  <div class="mb-3">
+			     	  <label for="freq" class="form-label">Donation Frequency</label>
+					  <select class="form-select" name="frequency" aria-label="Default select example" id="freq">
+						  <option selected value="1">Once</option>
+						  <option value="2">Every Month</option>
+					  </select>
+				  </div>
+				  <div id="paypal-button-container"></div>
+				  <a id="DonateBtn" class="btn btn-primary">Donate</a>
+				</form>
 			</div>
 			<div class="offset-md-2"></div>
 		</div>
 	</section>
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-		crossorigin="anonymous"></script>
+	<script>
+	
+		document.querySelector("#DonateBtn").addEventListener("click", function(){
+			  const student = document.querySelector("#student");
+
+			  const email = student.options[student.selectedIndex].getAttribute("email");
+			  const amount = document.querySelector("#amount").value;
+			  const donorName = document.querySelector("#donorName").value;
+			  
+			  const donation = `${donorName},${amount},${email}`;
+			  const url = "/secure/utility/saveDonation";
+
+			  fetch(url, {
+				method: 'post',
+				headers: {	
+					'Content-Type': 'text/plain'
+				},
+				body: donation
+			  });           	  
+			  
+			  window.location.reload(false)
+		});
+	</script>
 </body>
 </html>

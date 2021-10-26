@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,6 +45,9 @@ public class Student {
 	private String schoolType;
 	
 	@NonNull
+	private double gpa;
+
+	@NonNull
 	private String encryptedPassword;
 	@NonNull
 	private Boolean enabled;
@@ -50,4 +55,13 @@ public class Student {
 	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Role> roleList = new ArrayList<Role>();
 
+	private int highSchoolId;
+
+	private String highSchoolName;
+	
+	private int fieldOfInterestId;
+	
+	private String fieldOfInterest;
+	
+	private String story;
 }

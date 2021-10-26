@@ -2,7 +2,7 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Donor</title>
+<title>Student</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -30,52 +30,21 @@
 		</div>
 	</nav>
 	
-	<h1 class="mt-5 text-center" >Donor Dashboard</h1>
+	<h1 class="mt-5 text-center" >Student Dashboard</h1>
 	<h3 class="text-center">Donate</h3>
 	
 	<section class="fluid-container" style="background-color: white;">
 		<div class="row p-5">
 			<div class="col-md-2 offset-md-1">
 				<div class="list-group">
-				  <a th:href="@{/secure/DonorDashboard/FavouriteStudent}" class="list-group-item list-group-item-action mb-5" aria-current="true">
-				    View Favourite Student
-				  </a>
-				  <a href="#" class="list-group-item list-group-item-action mb-5">Paypal</a>
-				  <a th:href="@{/secure/DonorDashboard/Donation}" class="list-group-item list-group-item-action mb-5">Donate</a>
-				  <a th:href="@{/secure/DonorDashboard/DonationStatus}" class="list-group-item list-group-item-action mb-5">Donation Status</a>
-				  <a th:href="@{/secure/DonorDashboard/MessageCenter}" class="list-group-item list-group-item-action mb-5">Message Center</a>
-				  <a th:href="@{/secure/DonorDashboard/ProfileManager}" class="list-group-item list-group-item-action" tabindex="-1" aria-disabled="true">Manage Profile</a>
+				  <a th:href="@{/secure/StudentDashboard/DonationHistory}" class="list-group-item list-group-item-action mb-5">Donation History</a>
+				  <a th:href="@{/secure/StudentDashboard/MessageCenter}" class="list-group-item list-group-item-action mb-5">Message Center</a>
+				  <a th:href="@{/secure/StudentDashboard/ProfileManager}" class="list-group-item list-group-item-action" tabindex="-1" aria-disabled="true">Manage Profile</a>
 				</div>
-			</div>
-			<div class="offset-md-2 col-md-5">
-				<form method="POST">
-				  <input type="hidden" id="donorName" th:value="${name}"/>
-			      <div class="mb-3">
-			     	  <label for="student" class="form-label">Favourite Student</label>
-					  <select class="form-select" name="student" aria-label="Default select example" id="student">
-					  	<th:block th:each="s : ${favouriteStudents}">
-						  <option th:text="${s.firstname} + ' ' + ${s.lastname}" th:attr="email=${s.email}"></option>	
-					  	</th:block>
-					  </select>
-				  </div>
-				  <div class="mb-3">
-				    <label for="amount" class="form-label">Donation Amount</label>
-				    <input type="number" name="amount" class="form-control" value="1" id="amount">
-				  </div>
-				  <div class="mb-3">
-			     	  <label for="freq" class="form-label">Donation Frequency</label>
-					  <select class="form-select" name="frequency" aria-label="Default select example" id="freq">
-						  <option selected value="1">Once</option>
-						  <option value="2">Every Month</option>
-					  </select>
-				  </div>
-				  <div id="paypal-button-container"></div>
-				</form>
 			</div>
 			<div class="offset-md-2"></div>
 		</div>
 	</section>
-
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
