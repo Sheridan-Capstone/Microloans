@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Donor</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" th:href="@{/secure}">Home</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="#" th:text="${name}"></a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/logout}">Log Out</a></li>
+					
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	<h1 class="mt-5 text-center" >Donor Dashboard</h1>
+	<h3 class="text-center">Donate</h3>
+	
+	<section class="fluid-container" style="background-color: white;">
+		<div class="row p-5">
+			<div class="col-md-2 offset-md-1">
+				<div class="list-group">
+				  <a th:href="@{/secure/DonorDashboard/FavouriteStudent}" class="list-group-item list-group-item-action mb-5" aria-current="true">
+				    View Favourite Student
+				  </a>
+				  <a href="#" class="list-group-item list-group-item-action mb-5">Paypal</a>
+				  <a th:href="@{/secure/DonorDashboard/Donation}" class="list-group-item list-group-item-action mb-5">Donate</a>
+				  <a th:href="@{/secure/DonorDashboard/DonationStatus}" class="list-group-item list-group-item-action mb-5">Donation Status</a>
+				  <a th:href="@{/secure/DonorDashboard/MessageCenter}" class="list-group-item list-group-item-action mb-5">Message Center</a>
+				  <a th:href="@{/secure/DonorDashboard/ProfileManager}" class="list-group-item list-group-item-action" tabindex="-1" aria-disabled="true">Manage Profile</a>
+				</div>
+			</div>
+			<div class="offset-md-2 col-md-5">
+				<form method="POST">
+				  <input type="hidden" id="donorName" th:value="${name}"/>
+			      <div class="mb-3">
+			     	  <label for="student" class="form-label">Favourite Student</label>
+					  <select class="form-select" name="student" aria-label="Default select example" id="student">
+					  	<th:block th:each="s : ${favouriteStudents}">
+						  <option th:text="${s.firstname} + ' ' + ${s.lastname}" th:attr="email=${s.email}"></option>	
+					  	</th:block>
+					  </select>
+				  </div>
+				  <div class="mb-3">
+				    <label for="amount" class="form-label">Donation Amount</label>
+				    <input type="number" name="amount" class="form-control" value="1" id="amount">
+				  </div>
+				  <div class="mb-3">
+			     	  <label for="freq" class="form-label">Donation Frequency</label>
+					  <select class="form-select" name="frequency" aria-label="Default select example" id="freq">
+						  <option selected value="1">Once</option>
+						  <option value="2">Every Month</option>
+					  </select>
+				  </div>
+				  <div id="paypal-button-container"></div>
+				</form>
+			</div>
+			<div class="offset-md-2"></div>
+		</div>
+	</section>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+		crossorigin="anonymous"></script>
+	<script src="https://www.paypal.com/sdk/js?client-id=AU74ikxPWJiBuYeVxE-UVvVLuNdLMBFx7XSl1YChqshEe7mJMbvA9WKholLIBGpkYdtlM7sk9rvndhAM&currency=CAD" data-sdk-integration-source="button-factory"></script>
+	<script>
+		paypal.Buttons({
+		  style: {
+		    layout:  'vertical',
+		    color:   'blue',
+		    shape:   'rect',
+		    label:   'paypal'
+		  },
+		  // Call your server to set up the transaction
+          createOrder: function(data, actions) {
+              return fetch('/demo/checkout/api/paypal/order/create/', {
+                  method: 'post',
+                  headers: {
+                    	'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({'amount': document.querySelector("#amount").value})
+              }).then(function(res) {
+                  return res.text();
+              }).then(function(orderId) {
+                  return orderId;
+              });
+          },
+          // Call your server to finalize the transaction
+          onApprove: function(data, actions) {
+              return fetch('/demo/checkout/api/paypal/order/capture/', {
+                  method: 'post',
+                  headers: {
+                  	'Content-Type': 'text/plain',
+                  },
+                  body: data.orderID
+              }).then(function(res) {
+                  return res.json();
+              }).then(function(orderData) {
+
+            	  const student = document.querySelector("#student");
+
+            	  const email = student.options[student.selectedIndex].getAttribute("email");
+            	  const amount = document.querySelector("#amount").value;
+            	  const donorName = document.querySelector("#donorName").value;
+            	  
+            	  const donation = `${donorName},${amount},${email}`;
+				  const url = "/secure/utility/saveDonation";
+
+				  fetch(url, {
+					method: 'post',
+					headers: {	
+						'Content-Type': 'text/plain'
+					},
+					body: donation
+				  });           	  
+            	  
+                  var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+
+                  if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+                      return actions.restart(); // Recoverable state, per:
+                  }
+
+                  if (errorDetail) {
+                      var msg = 'Sorry, your transaction could not be processed.';
+                      if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+                      if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+                      return alert(msg); // Show a failure message
+                  }
+
+                  // Show a success message
+                  alert('Transaction completed by ' + orderData.payer.name.given_name);
+              });
+          }
+		}).render('#paypal-button-container');
+	</script>
+</body>
+</html>
