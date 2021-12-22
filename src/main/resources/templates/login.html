@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+	crossorigin="anonymous">
+
+<title>Login Page</title>
+
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/">Home</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link" th:href="@{/register}">Register</a></li>
+					
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container mt-5">
+	
+	<h1>Welcome ! Please log in!</h1>
+	  <div th:if="${message != null}">
+    <h2 class="text-warning">[[${message}]]</h2></div>
+	
+		<li th:each="role:${roleList}" th:text="${role}"></li>
+
+	<form method="post" th:action="@{/login}">
+		<div th:if="${param.error}">
+			<div style="color: red;">Invalid username or password.</div>
+		</div>
+
+		<div th:if="${param.logout}">
+			<div style="color: red;">You have been logged out.</div>
+		</div>
+
+
+		<div class="mb-3">
+			<label for="username" class="form-label">Email address</label> <input
+				type="email" class="form-control" id="username" name="username">
+		</div>
+
+		<div class="mb-3">
+			<label for="password" class="form-label">Password</label> <input
+				type="password" class="form-control" id="password" name="password">
+		</div>
+
+		<button type="submit" class="btn btn-primary" name="login-submit">Submit</button>
+
+	</form>
+
+	<p>
+		<a href="/" th:href="@{/}">Back to home page</a>
+	</p>
+	
+	<p>
+	<a href="/register" th:href="@{/register}">Create Account</a></p>
+	</p>
+	
+	<p>
+	<a th:href="@{/forgot_password}">Forgot password?</a>
+	</p>
+	</div>
+
+
+
+</body>
+</html>
